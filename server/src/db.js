@@ -1,16 +1,11 @@
-
-require('dotenv').config({
-  path: require('path').join(__dirname, '..', '.env')
-});
-
 const mysql = require('mysql2/promise');
 
 const db = mysql.createPool({
-  host: process.env.localhost,
+  host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT || 3306),
-  user: process.env.root,
-  password: process.env.59544945,
-  database: process.env.lsda,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 
   ssl: {
     ca: process.env.DB_SSL_CA,
