@@ -1,11 +1,25 @@
-require('dotenv').config({ path: require('path').join(__dirname, '..', '.env') }); // always server/.env, whatever folder you start from
+
+require('dotenv').config({
+  path: require('path').join(__dirname, '..', '.env')
+});
+
 const mysql = require('mysql2/promise');
-module.exports = mysql.createPool({
-  host: process.env.DB_HOST || 'localhost',
-  user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || '59544945',
-  database: process.env.DB_NAME || 'lsda',
+
+const db = mysql.createPool({
+  host: process.env.localhost,
+  port: Number(process.env.DB_PORT || 3306),
+  user: process.env.root,
+  password: process.env.59544945,
+  database: process.env.lsda,
+
+  ssl: {
+    ca: process.env.DB_SSL_CA,
+    rejectUnauthorized: true
+  },
+
   waitForConnections: true,
   connectionLimit: 10,
   charset: 'utf8mb4'
 });
+
+module.exports = db;
